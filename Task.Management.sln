@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task.Management.Api", "Task.Management.Api\Task.Management.Api.csproj", "{21EFFF7B-DACB-4BB0-84B8-702B367C0451}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task.Management.Api", "src\Task.Management.Api\Task.Management.Api.csproj", "{21EFFF7B-DACB-4BB0-84B8-702B367C0451}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
