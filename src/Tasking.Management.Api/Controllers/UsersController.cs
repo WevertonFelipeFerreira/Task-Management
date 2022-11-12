@@ -12,12 +12,17 @@ namespace Tasking.Management.API.Controllers
         {
             _mediator = mediator;
         }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
         {
+            //TODO Create InputValidation
             var id = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { id = id });
+            //TODO Create ViewModel to this response
+            var response = new { Id = id, Email = command.Email, Name = command.Name };
+
+            return Created(nameof(GetById), response);
         }
 
         [HttpGet("{userId}")]
