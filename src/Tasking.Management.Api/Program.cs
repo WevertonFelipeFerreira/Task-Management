@@ -1,10 +1,18 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Tasking.Management.API.Configurations;
+using Tasking.Management.API.Filters;
+using Tasking.Management.Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)));
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
+
 builder.Services.AddDb(builder.Configuration);
 builder.Services.AddDependencyInjection();
 builder.Services.AddMediators();
