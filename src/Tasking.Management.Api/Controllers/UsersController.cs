@@ -16,11 +16,7 @@ namespace Tasking.Management.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
         {
-            //TODO Create InputValidation
-            var id = await _mediator.Send(command);
-
-            //TODO Create ViewModel to this response
-            var response = new { Id = id, Email = command.Email, Name = command.Name };
+            var response = await _mediator.Send(command);
 
             return Created(nameof(GetById), response);
         }

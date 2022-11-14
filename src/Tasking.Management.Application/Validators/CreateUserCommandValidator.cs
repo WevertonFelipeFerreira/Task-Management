@@ -10,10 +10,14 @@ namespace Tasking.Management.Application.Validators
         {
             //TODO create message resource
             RuleFor(x => x.Email)
+                .NotEmpty()
+                .WithMessage("Required field.")
                 .Must(ValidEmail!)
                 .WithMessage("Invalid Email.");
 
             RuleFor(x => x.Password)
+                .NotEmpty()
+                .WithMessage("Required field.")
                 .Must(ValidPassword!)
                 .WithMessage("Invalid or weak Password.");
 
@@ -31,13 +35,13 @@ namespace Tasking.Management.Application.Validators
         private bool ValidPassword(string password)
         {
             var regex = new Regex(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$");
-            return regex.IsMatch(password);
+            return password != null ? regex.IsMatch(password) : false!;
         }
 
         private bool ValidEmail(string email)
         {
             var regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-            return regex.IsMatch(email);
+            return email != null ? regex.IsMatch(email) : false!;
         }
     }
 }

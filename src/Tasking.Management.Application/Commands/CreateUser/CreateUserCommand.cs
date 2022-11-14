@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using Tasking.Management.Application.ViewModels;
 
 namespace Tasking.Management.Application.Commands.CreateUser
 {
-    public class CreateUserCommand : IRequest<Guid>
+    public class CreateUserCommand : IRequest<CreateUserViewModel>
     {
         public string? Email { get; set; }
         public string? Password { get; set; }
