@@ -16,12 +16,18 @@ namespace Tasking.Management.Domain.Entities
         public string? City { get; protected set; }
         public string? State { get; protected set; }
         public string? ZipCode { get; protected set; }
-
-        [JsonIgnore]
         public Guid? UserId { get; protected set; }
-
-        [JsonIgnore]
         public User? User { get; protected set; }
 
+        public void Update(string? street, long? number, string? city, string? state, string? zipCode)
+        {
+            Street = street;
+            Number = number;
+            City = city;
+            State = state;
+            ZipCode = zipCode;
+
+            SetModifiedDate();
+        }
     }
 }

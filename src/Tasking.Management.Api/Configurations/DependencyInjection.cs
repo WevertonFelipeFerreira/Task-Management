@@ -8,6 +8,7 @@ namespace Tasking.Management.API.Configurations
         public static void AddDependencyInjection(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
         }
     }
 }

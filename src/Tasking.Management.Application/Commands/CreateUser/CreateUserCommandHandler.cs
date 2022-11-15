@@ -15,6 +15,8 @@ namespace Tasking.Management.Application.Commands.CreateUser
 
         public async Task<CreateUserViewModel> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
+            //TODO Implement AutoMaper
+            //TODO Implement scenario where exists a user with the given email 
             var entity = new User(
                     request.Email!,
                     request.Password!,

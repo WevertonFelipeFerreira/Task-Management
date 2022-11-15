@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Tasking.Management.Application.Commands.CreateUser;
+using Tasking.Management.Application.Commands.UpdateUserAddress;
 
 namespace Tasking.Management.API.Controllers
 {
@@ -19,6 +20,15 @@ namespace Tasking.Management.API.Controllers
             var response = await _mediator.Send(command);
 
             return Created(nameof(GetById), response);
+        }
+
+        [HttpPut("address/{userId}")]
+        public async Task<IActionResult> UpdateById([FromBody] UpdateUserAddressCommand command, Guid userId)
+        {
+            command.UserId = userId;
+            await _mediator.Send(command);
+
+            return NoContent();
         }
 
         [HttpGet("{userId}")]
