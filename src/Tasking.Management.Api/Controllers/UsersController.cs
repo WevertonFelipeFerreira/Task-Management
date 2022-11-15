@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tasking.Management.Application.Commands.CreateUser;
 using Tasking.Management.Application.Commands.UpdateUserAddress;
 using Tasking.Management.Domain.Exceptions;
+using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Tasking.Management.API.Controllers
 {
@@ -18,6 +19,9 @@ namespace Tasking.Management.API.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(CreateUserCommand), Status201Created)]
+        [ProducesResponseType(typeof(ProblemDetails), Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails),Status409Conflict)]
         public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
         {
             try
@@ -43,6 +47,9 @@ namespace Tasking.Management.API.Controllers
         }
 
         [HttpPut("address/{userId}")]
+        [ProducesResponseType(Status204NoContent)]
+        [ProducesResponseType(typeof(ProblemDetails), Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), Status409Conflict)]
         public async Task<IActionResult> UpdateById([FromBody] UpdateUserAddressCommand command, Guid userId)
         {
             try
@@ -64,7 +71,6 @@ namespace Tasking.Management.API.Controllers
 
                 return Conflict(error);
             }
-
 
         }
 
