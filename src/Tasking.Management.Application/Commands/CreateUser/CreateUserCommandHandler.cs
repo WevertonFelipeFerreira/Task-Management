@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Tasking.Management.Application.ViewModels;
 using Tasking.Management.Domain.Entities;
+using Tasking.Management.Domain.Exceptions;
 using Tasking.Management.Domain.Repositories;
 
 namespace Tasking.Management.Application.Commands.CreateUser
@@ -16,7 +17,10 @@ namespace Tasking.Management.Application.Commands.CreateUser
         public async Task<CreateUserViewModel> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             //TODO Implement AutoMaper
-            //TODO Implement scenario where exists a user with the given email 
+
+            var user = await _userRepository.GetByEmail(request.Email!);
+            if (user != null) throw new UserAlreadyExistException();
+
             var entity = new User(
                     request.Email!,
                     request.Password!,

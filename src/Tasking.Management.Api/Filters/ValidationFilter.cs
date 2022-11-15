@@ -23,7 +23,7 @@ namespace Tasking.Management.API.Filters
             {
                 var errorResponse = new ProblemDetails()
                 {
-                    Type = "https://example.com/probs/out-of-credit",
+                    Type = "https://example.com",
                     Title = "Bad Request",
                     Detail = "One or more validation errors ocurred.",
                     Instance = _contextAcessor.HttpContext!.Request.Path,

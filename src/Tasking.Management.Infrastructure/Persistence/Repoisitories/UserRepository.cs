@@ -1,6 +1,6 @@
-﻿using Tasking.Management.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Tasking.Management.Domain.Entities;
 using Tasking.Management.Domain.Repositories;
-using Tasking.Management.Infrastructure;
 
 namespace Tasking.Management.Infrastructure.Persistence.Repoisitories
 {
@@ -23,7 +23,12 @@ namespace Tasking.Management.Infrastructure.Persistence.Repoisitories
             throw new NotImplementedException();
         }
 
-        public Task<User> GetByIdAsync(Guid id)
+        public async Task<User?> GetByEmail(string email)
+        {
+            return await _dbContext!.Users!.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public Task<User?> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
