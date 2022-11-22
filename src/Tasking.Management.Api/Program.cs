@@ -13,6 +13,7 @@ builder.Services.AddControllers(options => options.Filters.Add(typeof(Validation
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDb(builder.Configuration);
 builder.Services.AddDependencyInjection();
