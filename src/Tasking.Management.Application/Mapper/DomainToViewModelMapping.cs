@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using Tasking.Management.Application.ViewModels;
+using Tasking.Management.Domain.Entities;
 
 namespace Tasking.Management.Application.Mapper
 {
-    internal class DomainToViewModelMapping
+    public class DomainToViewModelMapping : Profile
     {
+        public DomainToViewModelMapping()
+        {
+            CreateMap<User, CreateUserViewModel>()
+                .ForMember(x => x.UserId, y => y.MapFrom(z => z.Id));
+        }
     }
 }

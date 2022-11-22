@@ -4,9 +4,9 @@ using Tasking.Management.Domain.Entities;
 
 namespace Tasking.Management.Application.Mapper
 {
-    public class ViewModelToDomainMapping : Profile
+    public class CommandToDomainMapping : Profile
     {
-        public ViewModelToDomainMapping()
+        public CommandToDomainMapping()
         {
             CreateMap<CreateUserCommand, User>()
                 .ForMember(x => x.Id, y => y.Ignore())

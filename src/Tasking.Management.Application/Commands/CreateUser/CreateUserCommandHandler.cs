@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Tasking.Management.Application.ViewModels;
 using Tasking.Management.Domain.Entities;
 using Tasking.Management.Domain.Exceptions;
@@ -9,36 +10,22 @@ namespace Tasking.Management.Application.Commands.CreateUser
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserViewModel>
     {
         private readonly IUserRepository _userRepository;
-        public CreateUserCommandHandler(IUserRepository userRepository)
+        private readonly IMapper _mapper;
+        public CreateUserCommandHandler(IUserRepository userRepository, IMapper mapper)
         {
+            _mapper = mapper;
             _userRepository = userRepository;
         }
 
         public async Task<CreateUserViewModel> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            //TODO Implement AutoMaper
-
             var user = await _userRepository.GetByEmail(request.Email!);
             if (user != null) throw new UserAlreadyExistException();
 
-            var entity = new User(
-                    request.Email!,
-                    request.Password!,
-                    request.Name!,
-                    request.LastName!
-                );
-
+            var entity = _mapper.Map<User>(request);
             await _userRepository.AddAsync(entity);
 
-            var userVM = new CreateUserViewModel
-            {
-                UserId = entity.Id,
-                Email = request.Email,
-                Name = request.Name,
-                LastName = request.LastName,
-            };
-
-            return userVM;
+            return _mapper.Map<CreateUserViewModel>(entity);
         }
     }
 }
