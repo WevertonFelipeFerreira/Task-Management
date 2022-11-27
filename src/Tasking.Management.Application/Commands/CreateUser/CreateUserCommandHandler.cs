@@ -33,6 +33,8 @@ namespace Tasking.Management.Application.Commands.CreateUser
                     opt.AfterMap((src, dest) => dest.Password = src.Password = hashPassword));
 
             await _userRepository.AddAsync(entity);
+
+            //TODO remove after implement login route
             var jwt = _authService.GenerateUserJwtToken(entity.Id, entity.Email, "user");
 
             return _mapper.Map<CreateUserViewModel>(entity);

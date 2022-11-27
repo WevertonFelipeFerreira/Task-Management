@@ -12,14 +12,17 @@ namespace Tasking.Management.Application.Common
 
         public bool IsValidUser(Guid userId)
         {
-            var sapo = GetUserIdFromToken();
+            Guid tokenUserId = GetUserIdFromToken();
 
-            return false;
+            if (tokenUserId == Guid.Empty)
+                return false;
+
+            return userId.ToString() == tokenUserId.ToString();
         }
 
         public Guid GetUserIdFromToken()
         {
-            var userId = _contextAccessor.HttpContext?.User.FindFirst(a => a.Type == "sub")?.Value;
+            var userId = _contextAccessor.HttpContext?.User.FindFirst(a => a.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
 
             if (userId is null)
                 return Guid.Empty;

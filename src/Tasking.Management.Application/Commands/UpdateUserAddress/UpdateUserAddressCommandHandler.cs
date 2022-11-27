@@ -16,7 +16,10 @@ namespace Tasking.Management.Application.Commands.UpdateUserAddress
 
         public async Task<Unit> Handle(UpdateUserAddressCommand request, CancellationToken cancellationToken)
         {
-            var isValidUser = IsValidUser(request.UserId);
+            //TODO create exception for this case
+            if (!IsValidUser(request.UserId))
+                throw new ArgumentException("deu merda");
+
             var userAddress = await _addressRepository.GetByUserId(request.UserId);
             if (userAddress is null) throw new UserNotExistException();
 
