@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tasking.Management.Application.Commands.CreateUser;
 using Tasking.Management.Application.Commands.UpdateUserAddress;
@@ -47,6 +48,7 @@ namespace Tasking.Management.API.Controllers
         }
 
         [HttpPut("address/{userId}")]
+        [Authorize(Roles = "user")]
         [ProducesResponseType(Status204NoContent)]
         [ProducesResponseType(typeof(ProblemDetails), Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), Status409Conflict)]

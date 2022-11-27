@@ -10,7 +10,6 @@ namespace Tasking.Management.Application.Mapper
         {
             CreateMap<CreateUserCommand, User>()
                 .ForMember(x => x.Id, y => y.Ignore())
-                .ForMember(x => x.Password, y => y.MapFrom(x => x.HashPassword))
                 .ForMember(x => x.Address, y => y.Ignore())
                 .ForMember(x => x.DeletedAt, y => y.Ignore())
                 .ForMember(x => x.ModifiedAt, y => y.Ignore());

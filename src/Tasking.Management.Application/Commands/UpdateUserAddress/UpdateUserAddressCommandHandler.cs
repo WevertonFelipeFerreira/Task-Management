@@ -1,19 +1,22 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
+using Tasking.Management.Application.Common;
 using Tasking.Management.Domain.Exceptions;
 using Tasking.Management.Domain.Repositories;
 
 namespace Tasking.Management.Application.Commands.UpdateUserAddress
 {
-    public class UpdateUserAddressCommandHandler : IRequestHandler<UpdateUserAddressCommand, Unit>
+    public class UpdateUserAddressCommandHandler : BaseHandler, IRequestHandler<UpdateUserAddressCommand, Unit>
     {
         private readonly IAddressRepository _addressRepository;
-        public UpdateUserAddressCommandHandler(IAddressRepository addressRepository)
+        public UpdateUserAddressCommandHandler(IAddressRepository addressRepository, IHttpContextAccessor contextAccessor) : base(contextAccessor)
         {
             _addressRepository = addressRepository;
         }
 
         public async Task<Unit> Handle(UpdateUserAddressCommand request, CancellationToken cancellationToken)
         {
+            var isValidUser = IsValidUser(request.UserId);
             var userAddress = await _addressRepository.GetByUserId(request.UserId);
             if (userAddress is null) throw new UserNotExistException();
 

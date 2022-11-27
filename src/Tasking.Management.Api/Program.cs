@@ -20,7 +20,8 @@ builder.Services.AddDependencyInjection();
 builder.Services.AddMediators();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
+builder.Services.AddAuthorization(builder.Configuration);
 
 var app = builder.Build();
 
