@@ -1,4 +1,6 @@
 ﻿using Tasking.Management.Domain.Repositories;
+using Tasking.Management.Domain.Services;
+using Tasking.Management.Infrastructure.Auth;
 using Tasking.Management.Infrastructure.Persistence.Repoisitories;
 
 namespace Tasking.Management.API.Configurations
@@ -9,6 +11,7 @@ namespace Tasking.Management.API.Configurations
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IAuthService, AuthService>();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Tasking.Management.Infrastructure.Auth
             {
                 new Claim("userName", email),
                 new Claim("sub", userId.ToString()),
-                new Claim("iat", new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
+                new Claim("iat", Date.GetCurrentUnixTime()),
                 new Claim(ClaimTypes.Role, role)
             };
 
