@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Tasking.Management.Domain.Common.Entities;
+﻿using Tasking.Management.Domain.Common.Entities;
 using Tasking.Management.Domain.Interfaces;
 
 namespace Tasking.Management.Domain.Entities

@@ -53,7 +53,7 @@ namespace Tasking.Management.API.Controllers
             }
             catch (UserNotExistException ex)
             {
-                return Conflict(GetProblemDetails(ex,409));
+                return Conflict(GetProblemDetails(ex, 409));
             }
 
         }

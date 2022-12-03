@@ -13,8 +13,8 @@ namespace Tasking.Management.Infrastructure.Persistence.Configurations
 
             builder
                 .HasOne(x => x.User)
-                .WithOne(x=> x.Address)
-                .HasForeignKey(typeof(Address),"UserId")
+                .WithOne(x => x.Address)
+                .HasForeignKey(typeof(Address), "UserId")
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

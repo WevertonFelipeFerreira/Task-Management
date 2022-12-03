@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System.Text.Json.Serialization;
 using Tasking.Management.Application.ViewModels;
 
 namespace Tasking.Management.Application.Commands.CreateUser
