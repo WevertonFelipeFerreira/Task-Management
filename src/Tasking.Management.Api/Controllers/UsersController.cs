@@ -5,6 +5,7 @@ using Tasking.Management.Application.Commands.CreateUser;
 using Tasking.Management.Application.Commands.UpdateUserAddress;
 using Tasking.Management.Domain.Exceptions;
 using static Microsoft.AspNetCore.Http.StatusCodes;
+using static Tasking.Management.CrossCutting.ProblemDetail.ErrorGenerator;
 
 namespace Tasking.Management.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace Tasking.Management.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(CreateUserCommand), Status201Created)]
         [ProducesResponseType(typeof(ProblemDetails), Status400BadRequest)]
-        [ProducesResponseType(typeof(ProblemDetails),Status409Conflict)]
+        [ProducesResponseType(typeof(ProblemDetails), Status409Conflict)]
         public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
         {
             try
@@ -33,17 +34,7 @@ namespace Tasking.Management.API.Controllers
             }
             catch (UserAlreadyExistException ex)
             {
-                //TODO Create utils to generate problem detail
-                var error = new ProblemDetails
-                {
-                    Type = "https://example.com",
-                    Title = ex.Message,
-                    Detail = "A user with the provided email already exists.",
-                    Status = 409,
-                    Instance = _contextAcessor.HttpContext!.Request.Path
-                };
-
-                return Conflict(error);
+                return Conflict(GetProblemDetails(ex, 409));
             }
         }
 
@@ -62,16 +53,7 @@ namespace Tasking.Management.API.Controllers
             }
             catch (UserNotExistException ex)
             {
-                var error = new ProblemDetails
-                {
-                    Type = "https://example.com",
-                    Title = ex.Message,
-                    Detail = "It was not possible to update address for a user that does not exist.",
-                    Status = 409,
-                    Instance = _contextAcessor.HttpContext!.Request.Path
-                };
-
-                return Conflict(error);
+                return Conflict(GetProblemDetails(ex,409));
             }
 
         }

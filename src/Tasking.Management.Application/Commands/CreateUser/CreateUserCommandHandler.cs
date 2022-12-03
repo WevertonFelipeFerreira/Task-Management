@@ -15,17 +15,20 @@ namespace Tasking.Management.Application.Commands.CreateUser
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _contextAccessor;
         public CreateUserCommandHandler(IUserRepository userRepository, IAuthService authService, IHttpContextAccessor contextAcessor, IMapper mapper) : base(contextAcessor)
         {
             _mapper = mapper;
             _authService = authService;
             _userRepository = userRepository;
+            _contextAccessor = contextAcessor;
         }
 
         public async Task<CreateUserViewModel> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByEmail(request.Email!);
-            if (user != null) throw new UserAlreadyExistException();
+            //TODO Create resource message
+            if (user != null) throw new UserAlreadyExistException("User Already Exist", "A user with the provided email already exists.", _contextAccessor);
 
             var hashPassword = _authService.ComputeSha256Hash(request.Password!);
 

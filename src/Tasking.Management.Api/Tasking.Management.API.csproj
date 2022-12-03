@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tasking.Management.Application\Tasking.Management.Application.csproj" />
+    <ProjectReference Include="..\Tasking.Management.CrossCutting\Tasking.Management.CrossCutting.csproj" />
     <ProjectReference Include="..\Tasking.Management.Domain\Tasking.Management.Domain.csproj" />
     <ProjectReference Include="..\Tasking.Management.Infrastructure\Tasking.Management.Infrastructure.csproj" />
   </ItemGroup>
