@@ -1,11 +1,24 @@
-﻿namespace Tasking.Management.Domain.Exceptions
+﻿using Microsoft.AspNetCore.Http;
+using Tasking.Management.Domain.Interfaces;
+
+namespace Tasking.Management.Domain.Exceptions
 {
-    public class UserAlreadyExistException : Exception
+    [Serializable]
+    public class UserAlreadyExistException : Exception, IErrorDetails
     {
+        public string Title { get; } 
+        public string Detail { get; }
+        public IHttpContextAccessor? ContextAccessor { get; }
+
         //TODO Remove the hard code string and use resource message
-        public UserAlreadyExistException() : base("User Already Exist")
+        public UserAlreadyExistException(string message) : base(message)
         {
 
         }
+        public UserAlreadyExistException(string title, string detail, IHttpContextAccessor contextAccessor) : this(detail)
+        {
+            //Title
+        }
+
     }
 }
