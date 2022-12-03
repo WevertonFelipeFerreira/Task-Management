@@ -20,18 +20,21 @@ namespace Tasking.Management.API.Filters
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var errors = new Dictionary<string, List<string>>();
-
-            foreach (var modelState in context.ModelState)
+            if (!context.ModelState.IsValid)
             {
-                var errorsMessages = modelState.Value.Errors
-                    .Select(x => x.ErrorMessage)
-                    .ToList();
-                errors.Add(modelState.Key.ToLower(), errorsMessages);
+                var errors = new Dictionary<string, List<string>>();
+
+                foreach (var modelState in context.ModelState)
+                {
+                    var errorsMessages = modelState.Value.Errors
+                        .Select(x => x.ErrorMessage)
+                        .ToList();
+                    errors.Add(modelState.Key.ToLower(), errorsMessages);
+                }
+                context.Result = new BadRequestObjectResult(
+                    GetProblemDetails("Bad Request", "One or more validation errors ocurred.", 400, _contextAcessor)
+                        .SetExtension("errors", errors));
             }
-            context.Result = new BadRequestObjectResult(
-                GetProblemDetails("Bad Request", "One or more validation errors ocurred.", 400, _contextAcessor)
-                    .SetExtension("errors", errors));
         }
     }
 }
